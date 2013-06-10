@@ -4,21 +4,21 @@ var http = require('http')
   ;
 
 function proxy(req, res) {
-	var options = {
-		hostname: 'localhost'
-		, port: 3000
-		, path: req.path
-		, method: req.method
-		, headers: req.headers
-	};
+  var options = {
+    hostname: 'localhost'
+    , port: 3000
+    , path: req.path
+    , method: req.method
+    , headers: req.headers
+  };
 
-	var preq = http.request(options, function(pres) {
-		pres.pipe(res);
-	});
+  var preq = http.request(options, function(pres) {
+    pres.pipe(res);
+  });
 
-	preq.on('error', function(e) {
-		console.log('problem with request: ' + e.message);
-	});
+  preq.on('error', function(e) {
+    console.log('problem with request: ' + e.message);
+  });
 
-	req.pipe(preq);
+  req.pipe(preq);
 }
