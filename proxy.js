@@ -5,14 +5,15 @@ var http = require('http')
 
 function proxy(req, res) {
   var options = {
-    hostname: 'localhost'
-    , port: 3000
-    , path: req.path
+    hostname: host
+    , port: port
+    , path: req.originalUrl
     , method: req.method
     , headers: req.headers
   };
 
   var preq = http.request(options, function(pres) {
+    res.writeHead(pres.statusCode, pres.headers);
     pres.pipe(res);
   });
 
